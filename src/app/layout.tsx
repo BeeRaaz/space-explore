@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import { ApodProvider } from "@/contexts/ApodContext";
+import { MarsProvider } from "@/contexts/MarsContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
 });
 
@@ -25,9 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.className} antialiased min-w-[360px] text-slate-100 bg-slate-900`}
       >
-        {children}
+        <div className="w-full relative overflow-hidden">
+          <Header />
+          <main>
+            <ApodProvider>
+              <MarsProvider>{children}</MarsProvider>
+            </ApodProvider>
+          </main>
+        </div>
       </body>
     </html>
   );
