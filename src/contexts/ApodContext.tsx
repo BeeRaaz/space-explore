@@ -50,8 +50,8 @@ export const ApodProvider = ({ children }: { children: React.ReactNode }) => {
                 }
                 setApodData(response.data);
             }
-            catch (err: any) {
-                setError(`Error occured while fetching data: ${err.message || err}`);
+            catch (err) {
+                setError(`Error occured while fetching data: ${err}`);
                 return;
             } finally {
                 setIsLoading(false);
