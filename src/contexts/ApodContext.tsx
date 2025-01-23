@@ -57,7 +57,6 @@ export const ApodProvider = ({ children }: { children: React.ReactNode }) => {
                 setIsLoading(false);
             }
         };
-        console.log(process.env.NEXT_PUBLIC_NASA_API_KEY);
         fetchApodData();
     }, [])
 
