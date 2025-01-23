@@ -22,7 +22,13 @@ interface ApodContextData {
 }
 
 export const ApodContext = createContext<ApodContextData>({
-    apodData: undefined,
+    apodData: {
+        hdurl: '',
+        title: '',
+        url: '',
+        explanation: '',
+        date: '',
+    },
     isLoading: true,
     error: null,
 });
@@ -35,19 +41,23 @@ export const ApodProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         const fetchApodData = async() => {
             try {
+                if(!process.env.NEXT_PUBLIC_NASA_API_KEY) {
+                    throw new Error('NASA API key is missing');
+                }
                 const response = await apiClient.get(`/planetary/apod/?api_key=${process.env.NEXT_PUBLIC_NASA_API_KEY}`);
-                if(!response.status) {
-                    setError('Error occured while fetching data');
+                if(response.status !== 200) {
+                    throw new Error('Error occured while fetching data');
                 }
                 setApodData(response.data);
             }
-            catch (err) {
-                setError(`Error occured while fetching data: ${err}`);
+            catch (err: any) {
+                setError(`Error occured while fetching data: ${err.message || err}`);
                 return;
             } finally {
                 setIsLoading(false);
             }
         };
+        console.log(process.env.NEXT_PUBLIC_NASA_API_KEY);
         fetchApodData();
     }, [])
 

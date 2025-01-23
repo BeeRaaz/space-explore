@@ -16,7 +16,7 @@ export default function Home() {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (featuredImgRef) {
+    if (featuredImgRef?.current) {
       const currentRef = featuredImgRef.current;
       gsap.fromTo(
         currentRef,
@@ -38,7 +38,7 @@ export default function Home() {
         }
       );
     }
-  });
+  }, []);
 
   if (isLoading) {
     return <Loader label={"Fetching Data..."} />;
@@ -66,7 +66,14 @@ export default function Home() {
             {apodData?.explanation}
           </p>
           <div ref={featuredImgRef} className="mx-auto relative">
-            <Image src={`${apodData?.url}`} alt={`${apodData?.title}`} fill={true} className="!relative" />
+            <div className="relative">
+              <Image
+                src={`${apodData?.url}`}
+                alt={`${apodData?.title}`}
+                fill={true}
+                className="!relative"
+              />
+            </div>
           </div>
         </Container>
       </section>
