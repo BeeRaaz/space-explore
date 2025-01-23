@@ -10,6 +10,7 @@ const apiClient = axios.create({
 interface ApodDataResponse {
     hdurl: string;
     title: string;
+    url: string;
     explanation: string;
     date: string;
 }

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { ApodProvider } from "@/contexts/ApodContext";
-import { MarsProvider } from "@/contexts/MarsContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +27,7 @@ export default function RootLayout({
           <Header />
           <main>
             <ApodProvider>
-              <MarsProvider>{children}</MarsProvider>
+              {children}
             </ApodProvider>
           </main>
         </div>
